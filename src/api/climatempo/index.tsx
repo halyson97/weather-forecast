@@ -12,7 +12,15 @@ export const getCityByLocation = async ({latitude, longitude}: Location) => {
 };
 
 export const getWeatherCurrentByCityId = async (cityId: Number) => {
-  const url = `api/v1/weather/locale/${cityId}/current?token=${config.climatempo.token}`;
+  const url = `/api/v1/weather/locale/${cityId}/current?token=${config.climatempo.token}`;
+
+  const response = await api.get(url);
+
+  return response;
+};
+
+export const getForecastByCityId = async (cityId: Number) => {
+  const url = `/api/v1/forecast/locale/${cityId}/days/15?token=${config.climatempo.token}`;
 
   const response = await api.get(url);
 
@@ -22,4 +30,5 @@ export const getWeatherCurrentByCityId = async (cityId: Number) => {
 export default {
   getCityByLocation,
   getWeatherCurrentByCityId,
+  getForecastByCityId,
 };
