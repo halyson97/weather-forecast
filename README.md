@@ -9,7 +9,8 @@ App para previsão do tempo desenvolvido com React Native.
 
 ## Preview
 
-![Screenshot-day](https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/day.jpeg | width=250) ![Screenshot-night](https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/night.jpeg | width=250)
+<img src="https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/day.jpeg" width="225">
+<img src="https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/night.jpeg" width="225">
 
 ## Plugins utilizados
 A lista de plugins pode conter alguns outros não listados aqui por serem dependência direta destes abaixo:
