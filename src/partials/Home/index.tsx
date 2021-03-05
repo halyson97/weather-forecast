@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, ScrollView, Text, ImageBackground, View} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  ImageBackground,
+  View,
+} from 'react-native';
 import {getLocation} from '../../utils/Location';
 
 import {connect} from 'react-redux';
@@ -9,13 +15,16 @@ import Props from '../../utils/Props';
 import ErroLocation from '../../components/ErroLocation';
 import ErroNotData from '../../components/ErroNotData';
 import Preloader from '../../components/Preloader';
+import Header from '../../components/Header';
+import Main from '../../components/Main';
 
 import {Location} from '../../protocols';
 
 import climatempoApi from '../../api/climatempo';
 
 import {checkConnection} from '../../utils/ConnectionInfo';
-import Header from '../../components/Header';
+
+import {getIcon} from '../../utils/Icons';
 
 const Home = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -86,6 +95,10 @@ const Home = (props: any) => {
     }
   };
 
+  const getIconByDay = (day: string) => {
+    return getIcon(day);
+  };
+
   if (isLoading) {
     return <Preloader />;
   }
@@ -105,6 +118,10 @@ const Home = (props: any) => {
           <Header
             title={`${props.current.name}, ${props.current.state}`}
             subTitle={props.current.data.date}
+          />
+          <Main
+            temperature={props.current.data.temperature}
+            icon={getIconByDay(props.current.data.icon)}
           />
           <Text>Tela Home</Text>
           <Text>{props.current && props.current.name}</Text>
