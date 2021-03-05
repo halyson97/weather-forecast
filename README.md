@@ -2,15 +2,14 @@
 App para previsão do tempo desenvolvido com React Native.
 
 ## Features
-- Acesso a localização do usuário - latitude e longitude -, e exibe a cidade do mesmo
+- Acesso a localização do usuário - latitude e longitude - e exibe a cidade do mesmo
 - Busca de dados utilizando API Climatempo
 - Previsão do tempo dentro dos próximos 7 dias
-- Offline first: O aplicativo oferece a mesma experiencia para o usuário, tanto online como offline;
+- Offline first: O aplicativo oferece a mesma experiencia para o usuário, tanto on-line como off-line;
 
 ## Preview
 
-![Screenshot-day](https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/day.jpeg)
-![Screenshot-night](https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/night.jpeg)
+![Screenshot-day](https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/day.jpeg) ![Screenshot-night](https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/night.jpeg)
 
 ## Plugins utilizados
 A lista de plugins pode conter alguns outros não listados aqui por serem dependência direta destes abaixo:
