@@ -21,6 +21,7 @@ import Container from '../../components/Container';
 import ContentForecastPeriod from '../../components/ForecastPeriod/Content';
 import ForecastPeriod from '../../components/ForecastPeriod';
 import LastUpdateAt from '../../components/LastUpdateAt';
+import ForecastDay from '../../components/ForecastDay';
 
 import {Location} from '../../protocols';
 
@@ -30,7 +31,7 @@ import {checkConnection} from '../../utils/ConnectionInfo';
 
 import {getIcon} from '../../utils/Icons';
 import DescriptionText from '../../components/DescriptionText';
-import {getHoursAndMinutes, formatDateFull} from '../../utils/Date';
+import {getHoursAndMinutes, formatDateFull, getWeekDayAndDate} from '../../utils/Date';
 
 const Home = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -176,6 +177,16 @@ const Home = (props: any) => {
                 logo={require('../../assets/images/logos/climatempo.png')}
                 lastUpdate={formatDateUpdate(props.updatedAt)}
               />
+
+              {props.forecast.data.map((item: any, index: any) => (
+                <ForecastDay
+                  key={index}
+                  date={getWeekDayAndDate(item.date)}
+                  sourceImage={getIconByDay(item.text_icon.icon.day)}
+                  temperatureMax={item.temperature.max}
+                  temperatureMin={item.temperature.min}
+                />
+              ))}
             </Container>
           )}
         </ScrollView>
