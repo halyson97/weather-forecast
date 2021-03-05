@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
 import {getLocation} from '../../utils/Location';
 
@@ -6,16 +6,36 @@ import {connect} from 'react-redux';
 import * as locationActions from '../../redux/actions/location';
 import Props from '../../utils/Props';
 
+import ErroLocation from '../../components/ErroLocation';
+import Preloader from '../../components/Preloader';
+
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [erroLocation, setErroLocation] = useState(false);
+
   useEffect(() => {
-    async function getMyLocation() {
-      const location = await getLocation();
-
-      console.log(location);
-    }
-
     getMyLocation();
   }, []);
+
+  const getMyLocation = async () => {
+    try {
+      const location = await getLocation();
+      setIsLoading(false);
+      console.log(location);
+    } catch (erro) {
+      setIsLoading(false);
+      setErroLocation(true);
+    }
+  };
+
+  if (isLoading) {
+    return <Preloader />;
+  }
+
+  if (erroLocation) {
+    return <ErroLocation />;
+  }
+
   return (
     <View>
       <Text>Tela Home</Text>

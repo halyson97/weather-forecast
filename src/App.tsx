@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 
 import {NativeRouter, Route} from 'react-router-native';
 
@@ -9,13 +9,9 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView>
-          <NativeRouter>
-            <Route exact path="/" component={Home} />
-          </NativeRouter>
-        </ScrollView>
-      </SafeAreaView>
+      <NativeRouter>
+        <Route exact path="/" component={Home} />
+      </NativeRouter>
     </>
   );
 };
