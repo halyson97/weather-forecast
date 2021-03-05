@@ -31,10 +31,18 @@ import {checkConnection} from '../../utils/ConnectionInfo';
 
 import {getIcon} from '../../utils/Icons';
 import DescriptionText from '../../components/DescriptionText';
-import {getHoursAndMinutes, formatDateFull, getWeekDayAndDate} from '../../utils/Date';
+import {
+  getHoursAndMinutes,
+  formatDateFull,
+  getWeekDayAndDate,
+} from '../../utils/Date';
+
+const backgroundDay = require('../../assets/images/background/day.png');
+const backgroundNigth = require('../../assets/images/background/nigth.png');
 
 const Home = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
+  // TODO: exibir informação que o usuário esta offline usando o state isOffline
   const [isOffline, setIsOffline] = useState(false);
   const [isOfflineAndNotData, setIsOfflineAndNotData] = useState(false);
   const [erroLocation, setErroLocation] = useState(false);
@@ -133,6 +141,17 @@ const Home = (props: any) => {
     return getHoursAndMinutes(date);
   };
 
+  const getBackgroundByTime = () => {
+    const hours = new Date().getHours();
+    const isDayTime = hours > 6 && hours < 18;
+
+    if (isDayTime) {
+      return backgroundDay;
+    }
+
+    return backgroundNigth;
+  };
+
   if (isLoading) {
     return <Preloader />;
   }
@@ -150,44 +169,48 @@ const Home = (props: any) => {
       <SafeAreaView>
         <ScrollView>
           {!!props.current && (
-            <Container>
-              <Header
-                title={`${props.current.name}, ${props.current.state}`}
-                subTitle={formatDateFull(props.current.data.date)}
-              />
-              <Main
-                temperature={props.current.data.temperature}
-                icon={getIconByDay(props.current.data.icon)}
-              />
-              <DescriptionText text={props.current.data.condition} />
+            <ImageBackground
+              source={getBackgroundByTime()}
+              style={{flex: 1, resizeMode: 'cover', justifyContent: 'center'}}>
+              <Container>
+                <Header
+                  title={`${props.current.name}, ${props.current.state}`}
+                  subTitle={formatDateFull(props.current.data.date)}
+                />
+                <Main
+                  temperature={props.current.data.temperature}
+                  icon={getIconByDay(props.current.data.icon)}
+                />
+                <DescriptionText text={props.current.data.condition} />
 
-              <ContentForecastPeriod>
-                {preparePeriodsDay().map((item, index) => (
-                  <ForecastPeriod
+                <ContentForecastPeriod>
+                  {preparePeriodsDay().map((item, index) => (
+                    <ForecastPeriod
+                      key={index}
+                      date={item.name}
+                      sourceImage={getIconByDay(item.icon)}
+                      temperatureMax={item.temperature.max}
+                      temperatureMin={item.temperature.min}
+                    />
+                  ))}
+                </ContentForecastPeriod>
+
+                <LastUpdateAt
+                  logo={require('../../assets/images/logos/climatempo.png')}
+                  lastUpdate={formatDateUpdate(props.updatedAt)}
+                />
+
+                {props.forecast.data.map((item: any, index: any) => (
+                  <ForecastDay
                     key={index}
-                    date={item.name}
-                    sourceImage={getIconByDay(item.icon)}
+                    date={getWeekDayAndDate(item.date)}
+                    sourceImage={getIconByDay(item.text_icon.icon.day)}
                     temperatureMax={item.temperature.max}
                     temperatureMin={item.temperature.min}
                   />
                 ))}
-              </ContentForecastPeriod>
-
-              <LastUpdateAt
-                logo={require('../../assets/images/logos/climatempo.png')}
-                lastUpdate={formatDateUpdate(props.updatedAt)}
-              />
-
-              {props.forecast.data.map((item: any, index: any) => (
-                <ForecastDay
-                  key={index}
-                  date={getWeekDayAndDate(item.date)}
-                  sourceImage={getIconByDay(item.text_icon.icon.day)}
-                  temperatureMax={item.temperature.max}
-                  temperatureMin={item.temperature.min}
-                />
-              ))}
-            </Container>
+              </Container>
+            </ImageBackground>
           )}
         </ScrollView>
       </SafeAreaView>
