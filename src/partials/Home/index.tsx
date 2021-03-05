@@ -7,6 +7,7 @@ import * as weatherActions from '../../redux/actions/weather';
 import Props from '../../utils/Props';
 
 import ErroLocation from '../../components/ErroLocation';
+import ErroNotData from '../../components/ErroNotData';
 import Preloader from '../../components/Preloader';
 
 import {Location} from '../../protocols';
@@ -28,6 +29,9 @@ const Home = (props: any) => {
   const getMyLocation = async () => {
     try {
       setErroLocation(false);
+      setIsOfflineAndNotData(false);
+      setIsOffline(false);
+
       if (!props.current) {
         setIsLoading(true);
       }
@@ -86,7 +90,7 @@ const Home = (props: any) => {
   }
 
   if (isOfflineAndNotData) {
-    return <ErroLocation tryAgain={getMyLocation} />;
+    return <ErroNotData tryAgain={getMyLocation} />;
   }
 
   if (erroLocation) {
@@ -96,7 +100,7 @@ const Home = (props: any) => {
   return (
     <View>
       <Text>Tela Home</Text>
-      <Text>{props.current.name}</Text>
+      <Text>{props.current && props.current.name}</Text>
       {isOffline && <Text>Voce esta offline</Text>}
     </View>
   );
