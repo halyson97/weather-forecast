@@ -2,12 +2,10 @@ import axios from 'axios';
 
 import config from '../../config/config';
 
-export const instance = axios.create({
+const instance = axios.create({
   baseURL: config.climatempo.url,
   timeout: 10000,
   headers: {'Content-Type': 'application/json'},
 });
 
-export default {
-  instance,
-};
+export default instance;

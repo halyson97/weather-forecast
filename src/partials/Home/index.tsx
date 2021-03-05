@@ -9,6 +9,10 @@ import Props from '../../utils/Props';
 import ErroLocation from '../../components/ErroLocation';
 import Preloader from '../../components/Preloader';
 
+import {Location} from '../../protocols';
+
+import climatempoApi from '../../api/climatempo';
+
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [erroLocation, setErroLocation] = useState(false);
@@ -23,12 +27,24 @@ const Home = () => {
       setIsLoading(true);
 
       const location = await getLocation();
-      setIsLoading(false);
-      console.log(location);
+
+      getMyCityByLocation(location);
     } catch (erro) {
-      console.log(erro)
+      console.log(erro);
       setIsLoading(false);
       setErroLocation(true);
+    }
+  };
+
+  const getMyCityByLocation = async (location: Location) => {
+    try {
+      const response = await climatempoApi.getCityByLocation(location);
+
+      console.log('cidade:', response.data);
+    } catch (erro) {
+      // TODO: tratar erro
+      console.log('erroooooooooooo');
+      console.log(erro);
     }
   };
 
