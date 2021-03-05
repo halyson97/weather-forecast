@@ -20,6 +20,7 @@
     "@types/redux-persist": "^4.3.1",
     "@types/styled-components": "^5.1.7",
     "axios": "^0.21.1",
+    "lottie-react-native": "^3.5.0",
     "moment": "^2.29.1",
     "react": "16.13.1",
     "react-native": "0.63.4",

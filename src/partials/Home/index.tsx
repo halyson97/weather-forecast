@@ -19,10 +19,14 @@ const Home = () => {
 
   const getMyLocation = async () => {
     try {
+      setErroLocation(false);
+      setIsLoading(true);
+
       const location = await getLocation();
       setIsLoading(false);
       console.log(location);
     } catch (erro) {
+      console.log(erro)
       setIsLoading(false);
       setErroLocation(true);
     }
@@ -33,7 +37,7 @@ const Home = () => {
   }
 
   if (erroLocation) {
-    return <ErroLocation />;
+    return <ErroLocation tryAgain={getMyLocation} />;
   }
 
   return (
