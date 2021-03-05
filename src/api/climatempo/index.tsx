@@ -6,7 +6,13 @@ import {Location} from '../../protocols';
 export const getCityByLocation = async ({latitude, longitude}: Location) => {
   const url = `/api/v1/locale/city?latitude=${latitude}&longitude=${longitude}&token=${config.climatempo.token}`;
 
-  console.log(url);
+  const response = await api.get(url);
+
+  return response;
+};
+
+export const getWeatherCurrentByCityId = async (cityId: Number) => {
+  const url = `api/v1/weather/locale/${cityId}/current?token=${config.climatempo.token}`;
 
   const response = await api.get(url);
 
@@ -15,4 +21,5 @@ export const getCityByLocation = async ({latitude, longitude}: Location) => {
 
 export default {
   getCityByLocation,
+  getWeatherCurrentByCityId,
 };

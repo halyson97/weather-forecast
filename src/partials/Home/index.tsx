@@ -40,7 +40,19 @@ const Home = () => {
     try {
       const response = await climatempoApi.getCityByLocation(location);
 
-      console.log('cidade:', response.data);
+      getMyWeatherCurrentByCityId(response.data.id);
+    } catch (erro) {
+      // TODO: tratar erro
+      console.log('erroooooooooooo');
+      console.log(erro);
+    }
+  };
+
+  const getMyWeatherCurrentByCityId = async (cityId: Number) => {
+    try {
+      const response = await climatempoApi.getWeatherCurrentByCityId(cityId);
+
+      console.log('weather:', response.data);
     } catch (erro) {
       // TODO: tratar erro
       console.log('erroooooooooooo');
