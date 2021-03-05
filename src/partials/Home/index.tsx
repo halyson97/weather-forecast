@@ -17,6 +17,7 @@ import ErroNotData from '../../components/ErroNotData';
 import Preloader from '../../components/Preloader';
 import Header from '../../components/Header';
 import Main from '../../components/Main';
+import Container from '../../components/Container';
 
 import {Location} from '../../protocols';
 
@@ -115,17 +116,19 @@ const Home = (props: any) => {
     <View style={{backgroundColor: 'green', flex: 1}}>
       <SafeAreaView>
         <ScrollView>
-          <Header
-            title={`${props.current.name}, ${props.current.state}`}
-            subTitle={props.current.data.date}
-          />
-          <Main
-            temperature={props.current.data.temperature}
-            icon={getIconByDay(props.current.data.icon)}
-          />
-          <Text>Tela Home</Text>
-          <Text>{props.current && props.current.name}</Text>
-          {isOffline && <Text>Voce esta offline</Text>}
+          <Container>
+            <Header
+              title={`${props.current.name}, ${props.current.state}`}
+              subTitle={props.current.data.date}
+            />
+            <Main
+              temperature={props.current.data.temperature}
+              icon={getIconByDay(props.current.data.icon)}
+            />
+            <Text>Tela Home</Text>
+            <Text>{props.current && props.current.name}</Text>
+            {isOffline && <Text>Voce esta offline</Text>}
+          </Container>
         </ScrollView>
       </SafeAreaView>
     </View>
