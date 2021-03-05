@@ -13,7 +13,7 @@ import {Location} from '../../protocols';
 
 import climatempoApi from '../../api/climatempo';
 
-const Home = () => {
+const Home = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [erroLocation, setErroLocation] = useState(false);
 
@@ -38,6 +38,10 @@ const Home = () => {
 
   const getDataClimatempoByLocation = async (location: Location) => {
     try {
+      if (props.current) {
+        setIsLoading(false);
+      }
+
       const responseCity = await climatempoApi.getCityByLocation(location);
       const responseWeather = await climatempoApi.getWeatherCurrentByCityId(
         responseCity.data.id,
@@ -45,6 +49,10 @@ const Home = () => {
       const responseForecast = await climatempoApi.getForecastByCityId(
         responseCity.data.id,
       );
+
+      const updatedAt = new Date();
+
+      props.saveWeather(responseWeather.data, responseForecast.data, updatedAt);
 
       setIsLoading(false);
     } catch (erro) {
@@ -64,6 +72,7 @@ const Home = () => {
   return (
     <View>
       <Text>Tela Home</Text>
+      <Text>{props.current.name}</Text>
     </View>
   );
 };
