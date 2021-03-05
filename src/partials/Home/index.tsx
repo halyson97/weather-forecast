@@ -13,8 +13,12 @@ import {Location} from '../../protocols';
 
 import climatempoApi from '../../api/climatempo';
 
+import {checkConnection} from '../../utils/ConnectionInfo';
+
 const Home = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isOffline, setIsOffline] = useState(false);
+  const [isOfflineAndNotData, setIsOfflineAndNotData] = useState(false);
   const [erroLocation, setErroLocation] = useState(false);
 
   useEffect(() => {
@@ -24,13 +28,30 @@ const Home = (props: any) => {
   const getMyLocation = async () => {
     try {
       setErroLocation(false);
-      setIsLoading(true);
+      if (!props.current) {
+        setIsLoading(true);
+      }
 
       const location = await getLocation();
 
-      getDataClimatempoByLocation(location);
+      const isConnected = await checkConnection();
+
+      console.log('internet', isConnected);
+
+      if (isConnected) {
+        return getDataClimatempoByLocation(location);
+      }
+
+      setIsLoading(false);
+
+      if (props.current) {
+        setIsOfflineAndNotData(false);
+        setIsOffline(true);
+      } else {
+        setIsOfflineAndNotData(true);
+        setIsOffline(false);
+      }
     } catch (erro) {
-      console.log(erro);
       setIsLoading(false);
       setErroLocation(true);
     }
@@ -57,12 +78,15 @@ const Home = (props: any) => {
       setIsLoading(false);
     } catch (erro) {
       // TODO: tratar erro
-      console.log('erro', erro);
     }
   };
 
   if (isLoading) {
     return <Preloader />;
+  }
+
+  if (isOfflineAndNotData) {
+    return <ErroLocation tryAgain={getMyLocation} />;
   }
 
   if (erroLocation) {
@@ -73,6 +97,7 @@ const Home = (props: any) => {
     <View>
       <Text>Tela Home</Text>
       <Text>{props.current.name}</Text>
+      {isOffline && <Text>Voce esta offline</Text>}
     </View>
   );
 };
