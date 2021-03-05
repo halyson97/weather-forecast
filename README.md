@@ -9,8 +9,10 @@ App para previsão do tempo desenvolvido com React Native.
 
 ## Preview
 
-<img src="https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/day.jpeg" width="225">
-<img src="https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/night.jpeg" width="225">
+<p align="center">
+  <img align="left" src="https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/day.jpeg"   width="225">
+  <img align="right" src="https://raw.githubusercontent.com/halyson97/weather-forecast/main/assets/screenshots/night.jpeg" width="225">
+ </p>
 
 ## Plugins utilizados
 A lista de plugins pode conter alguns outros não listados aqui por serem dependência direta destes abaixo:
