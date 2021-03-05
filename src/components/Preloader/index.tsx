@@ -1,11 +1,14 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+
+import LottieView from 'lottie-react-native';
 
 const Preloader = () => {
   return (
-    <View>
-      <Text>Carregando ...</Text>
-    </View>
+    <LottieView
+      source={require('../../assets/lottie/loader.json')}
+      autoPlay
+      loop
+    />
   );
 };
 

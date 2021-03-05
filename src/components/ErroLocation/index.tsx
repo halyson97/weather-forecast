@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, GestureResponderEvent, Text, View} from 'react-native';
+import {Button, GestureResponderEvent, View} from 'react-native';
 
 import LottieView from 'lottie-react-native';
 
