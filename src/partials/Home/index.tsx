@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import {getLocation} from '../../utils/Location';
 
 import {connect} from 'react-redux';
-import * as locationActions from '../../redux/actions/location';
+import * as weatherActions from '../../redux/actions/weather';
 import Props from '../../utils/Props';
 
 import ErroLocation from '../../components/ErroLocation';
@@ -70,13 +70,15 @@ const Home = () => {
 
 const mapStateToProps = (state: any) => {
   return {
-    location: state.location,
+    current: state.weather.current,
+    forecast: state.weather.forecast,
+    updatedAt: state.weather.updatedAt,
   };
 };
 
 export default connect(
   mapStateToProps,
   Props.MapDispatchToProps({
-    ...locationActions,
+    ...weatherActions,
   }),
 )(Home);
