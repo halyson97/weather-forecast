@@ -18,6 +18,8 @@ import Preloader from '../../components/Preloader';
 import Header from '../../components/Header';
 import Main from '../../components/Main';
 import Container from '../../components/Container';
+import ContentForecastPeriod from '../../components/ForecastPeriod/Content';
+import ForecastPeriod from '../../components/ForecastPeriod';
 
 import {Location} from '../../protocols';
 
@@ -97,6 +99,28 @@ const Home = (props: any) => {
     }
   };
 
+  const preparePeriodsDay = () => {
+    let item = props.forecast.data[0];
+    let periods = [];
+
+    const namesFormated: {[day: string]: any} = {
+      dawn: 'alvorecer',
+      morning: 'manhã',
+      afternoon: 'tarde',
+      night: 'noite',
+    };
+
+    const periodsName = ['dawn', 'morning', 'afternoon', 'night'];
+
+    periods = periodsName.map((name) => ({
+      name: namesFormated[name],
+      icon: item.text_icon.icon[name],
+      temperature: item.temperature[name],
+    }));
+
+    return periods;
+  };
+
   const getIconByDay = (day: string) => {
     return getIcon(day);
   };
@@ -128,6 +152,18 @@ const Home = (props: any) => {
                 icon={getIconByDay(props.current.data.icon)}
               />
               <DescriptionText text={props.current.data.condition} />
+
+              <ContentForecastPeriod>
+                {preparePeriodsDay().map((item, index) => (
+                  <ForecastPeriod
+                    key={index}
+                    date={item.name}
+                    sourceImage={getIconByDay(item.icon)}
+                    temperatureMax={item.temperature.max}
+                    temperatureMin={item.temperature.min}
+                  />
+                ))}
+              </ContentForecastPeriod>
             </Container>
           )}
         </ScrollView>
