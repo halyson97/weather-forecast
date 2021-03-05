@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
+import {SafeAreaView, ScrollView, Text, ImageBackground, View} from 'react-native';
 import {getLocation} from '../../utils/Location';
 
 import {connect} from 'react-redux';
@@ -15,6 +15,7 @@ import {Location} from '../../protocols';
 import climatempoApi from '../../api/climatempo';
 
 import {checkConnection} from '../../utils/ConnectionInfo';
+import Header from '../../components/Header';
 
 const Home = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -98,10 +99,18 @@ const Home = (props: any) => {
   }
 
   return (
-    <View>
-      <Text>Tela Home</Text>
-      <Text>{props.current && props.current.name}</Text>
-      {isOffline && <Text>Voce esta offline</Text>}
+    <View style={{backgroundColor: 'green', flex: 1}}>
+      <SafeAreaView>
+        <ScrollView>
+          <Header
+            title={`${props.current.name}, ${props.current.state}`}
+            subTitle={props.current.data.date}
+          />
+          <Text>Tela Home</Text>
+          <Text>{props.current && props.current.name}</Text>
+          {isOffline && <Text>Voce esta offline</Text>}
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };
