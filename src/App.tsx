@@ -3,6 +3,11 @@ import {SafeAreaView, ScrollView, StatusBar} from 'react-native';
 
 import {NativeRouter, Route} from 'react-router-native';
 
+import {connect} from 'react-redux';
+import * as locationActions from './redux/actions/location';
+
+import Props from './utils/Props';
+
 import Home from './partials/Home';
 
 const App = () => {
@@ -20,4 +25,15 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (state: any) => {
+  return {
+    location: state.location,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  Props.MapDispatchToProps({
+    ...locationActions,
+  }),
+)(App);
