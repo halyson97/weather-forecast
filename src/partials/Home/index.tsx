@@ -28,7 +28,7 @@ const Home = () => {
 
       const location = await getLocation();
 
-      getMyCityByLocation(location);
+      getDataClimatempoByLocation(location);
     } catch (erro) {
       console.log(erro);
       setIsLoading(false);
@@ -36,39 +36,20 @@ const Home = () => {
     }
   };
 
-  const getMyCityByLocation = async (location: Location) => {
+  const getDataClimatempoByLocation = async (location: Location) => {
     try {
-      const response = await climatempoApi.getCityByLocation(location);
+      const responseCity = await climatempoApi.getCityByLocation(location);
+      const responseWeather = await climatempoApi.getWeatherCurrentByCityId(
+        responseCity.data.id,
+      );
+      const responseForecast = await climatempoApi.getForecastByCityId(
+        responseCity.data.id,
+      );
 
-      getMyWeatherCurrentByCityId(response.data.id);
+      setIsLoading(false);
     } catch (erro) {
       // TODO: tratar erro
-      console.log('erroooooooooooo');
-      console.log(erro);
-    }
-  };
-
-  const getMyWeatherCurrentByCityId = async (cityId: Number) => {
-    try {
-      const response = await climatempoApi.getWeatherCurrentByCityId(cityId);
-
-      getMyForecastByCityId(cityId);
-    } catch (erro) {
-      // TODO: tratar erro
-      console.log('erroooooooooooo');
-      console.log(erro);
-    }
-  };
-
-  const getMyForecastByCityId = async (cityId: Number) => {
-    try {
-      const response = await climatempoApi.getForecastByCityId(cityId);
-
-      console.log('forecast:', response.data);
-    } catch (erro) {
-      // TODO: tratar erro
-      console.log('erroooooooooooo');
-      console.log(erro);
+      console.log('erro', erro);
     }
   };
 
