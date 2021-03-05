@@ -26,6 +26,7 @@ import climatempoApi from '../../api/climatempo';
 import {checkConnection} from '../../utils/ConnectionInfo';
 
 import {getIcon} from '../../utils/Icons';
+import DescriptionText from '../../components/DescriptionText';
 
 const Home = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -116,19 +117,19 @@ const Home = (props: any) => {
     <View style={{backgroundColor: 'green', flex: 1}}>
       <SafeAreaView>
         <ScrollView>
-          <Container>
-            <Header
-              title={`${props.current.name}, ${props.current.state}`}
-              subTitle={props.current.data.date}
-            />
-            <Main
-              temperature={props.current.data.temperature}
-              icon={getIconByDay(props.current.data.icon)}
-            />
-            <Text>Tela Home</Text>
-            <Text>{props.current && props.current.name}</Text>
-            {isOffline && <Text>Voce esta offline</Text>}
-          </Container>
+          {!!props.current && (
+            <Container>
+              <Header
+                title={`${props.current.name}, ${props.current.state}`}
+                subTitle={props.current.data.date}
+              />
+              <Main
+                temperature={props.current.data.temperature}
+                icon={getIconByDay(props.current.data.icon)}
+              />
+              <DescriptionText text={props.current.data.condition} />
+            </Container>
+          )}
         </ScrollView>
       </SafeAreaView>
     </View>
