@@ -6,10 +6,10 @@ export const Container = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 30;
-  padding-bottom: 10;
-  margin-bottom: 10;
-  border-bottom-width: 1;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom-width: 1px;
   border-color: rgba(255, 255, 255, 0.7);
 `;
 

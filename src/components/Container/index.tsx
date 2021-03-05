@@ -3,9 +3,10 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  margin-top: 32px;
+  padding-top: 32px;
   padding-horizontal: 24px;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
 type PropsTypes = {
