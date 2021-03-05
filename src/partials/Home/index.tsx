@@ -20,6 +20,7 @@ import Main from '../../components/Main';
 import Container from '../../components/Container';
 import ContentForecastPeriod from '../../components/ForecastPeriod/Content';
 import ForecastPeriod from '../../components/ForecastPeriod';
+import LastUpdateAt from '../../components/LastUpdateAt';
 
 import {Location} from '../../protocols';
 
@@ -29,6 +30,7 @@ import {checkConnection} from '../../utils/ConnectionInfo';
 
 import {getIcon} from '../../utils/Icons';
 import DescriptionText from '../../components/DescriptionText';
+import {getHoursAndMinutes, formatDateFull} from '../../utils/Date';
 
 const Home = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -100,6 +102,7 @@ const Home = (props: any) => {
   };
 
   const preparePeriodsDay = () => {
+    // TODO: alterar para exibir a previsão para o dia que o usuário selecionar
     let item = props.forecast.data[0];
     let periods = [];
 
@@ -125,6 +128,10 @@ const Home = (props: any) => {
     return getIcon(day);
   };
 
+  const formatDateUpdate = (date: string) => {
+    return getHoursAndMinutes(date);
+  };
+
   if (isLoading) {
     return <Preloader />;
   }
@@ -145,7 +152,7 @@ const Home = (props: any) => {
             <Container>
               <Header
                 title={`${props.current.name}, ${props.current.state}`}
-                subTitle={props.current.data.date}
+                subTitle={formatDateFull(props.current.data.date)}
               />
               <Main
                 temperature={props.current.data.temperature}
@@ -164,6 +171,11 @@ const Home = (props: any) => {
                   />
                 ))}
               </ContentForecastPeriod>
+
+              <LastUpdateAt
+                logo={require('../../assets/images/logos/climatempo.png')}
+                lastUpdate={formatDateUpdate(props.updatedAt)}
+              />
             </Container>
           )}
         </ScrollView>
